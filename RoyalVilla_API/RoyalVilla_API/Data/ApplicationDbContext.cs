@@ -8,11 +8,14 @@ namespace RoyalVilla_API.Data
 
         public DbSet<Villa> Villa { get; set; }
 
+        public DbSet<User> User { get; set; }
+
         // Alternate modern C# syntax
         //public ApplicationDbContext(DbContextOptions options) : DbContext(options) { }
 
         // Create a constructor and pass options to the base class
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
