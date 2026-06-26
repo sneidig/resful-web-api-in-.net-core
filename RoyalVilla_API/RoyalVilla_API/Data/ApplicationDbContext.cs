@@ -25,6 +25,18 @@ namespace RoyalVilla_API.Data
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
+            // Default audit timestamps on INSERT so they never persist as
+            // DateTime.MinValue. UpdatedDate must still be refreshed
+            // server-side in the update handler (a SQL default only fires
+            // on insert, not on update).
+            modelBuilder.Entity<User>()
+                .Property(u => u.CreatedDate)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.UpdatedDate)
+                .HasDefaultValueSql("GETUTCDATE()");
+
             modelBuilder.Entity<Villa>()
                 .Property(v => v.Rate)
                 .HasPrecision(5, 2);
