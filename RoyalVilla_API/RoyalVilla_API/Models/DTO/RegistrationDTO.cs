@@ -6,6 +6,7 @@ namespace RoyalVilla_API.Models.DTO
     {
         [Required]
         [EmailAddress]
+        [MaxLength(256)]
         public required string Email { get; set; }
 
         [Required]
