@@ -21,6 +21,10 @@ namespace RoyalVilla_API.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
             modelBuilder.Entity<Villa>()
                 .Property(v => v.Rate)
                 .HasPrecision(5, 2);

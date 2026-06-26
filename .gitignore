@@ -62,3 +62,4 @@ nunit-*.xml
 # Local environment overrides
 appsettings.Development.json
 appsettings.*.json
+/RoyalVilla_API/.claude
