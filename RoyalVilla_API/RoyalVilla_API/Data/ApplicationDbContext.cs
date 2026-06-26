@@ -8,15 +8,34 @@ namespace RoyalVilla_API.Data
 
         public DbSet<Villa> Villa { get; set; }
 
+        public DbSet<User> User { get; set; }
+
         // Alternate modern C# syntax
         //public ApplicationDbContext(DbContextOptions options) : DbContext(options) { }
 
         // Create a constructor and pass options to the base class
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            // Default audit timestamps on INSERT so they never persist as
+            // DateTime.MinValue. UpdatedDate must still be refreshed
+            // server-side in the update handler (a SQL default only fires
+            // on insert, not on update).
+            modelBuilder.Entity<User>()
+                .Property(u => u.CreatedDate)
+                .HasDefaultValueSql("GETUTCDATE()");
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.UpdatedDate)
+                .HasDefaultValueSql("GETUTCDATE()");
 
             modelBuilder.Entity<Villa>()
                 .Property(v => v.Rate)
