@@ -8,7 +8,7 @@
         public string Message { get; set; } = string.Empty;
         public TData? Data { get; set; }
         public object? Errors { get; set; }
-        public DateTime Timestamp { get; set; } = DateTime.MinValue;
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 
     }
 }

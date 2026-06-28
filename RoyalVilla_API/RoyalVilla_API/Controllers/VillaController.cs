@@ -56,7 +56,6 @@ namespace RoyalVilla_API.Controllers
                 return new ApiResponse<VillaDTO>()
                 {
                     StatusCode = 200,
-                    Errors = "Villa ID must be greater than 0",
                     Success = true,
                     Message = "Records retrieved successfully",
                     Data = _mapper.Map<VillaDTO>(villa)
@@ -139,7 +138,7 @@ namespace RoyalVilla_API.Controllers
                 }
 
                 _mapper.Map(villaDTO, existingVilla);
-                existingVilla.UpdatedDate = DateTime.Now;
+                existingVilla.UpdatedDate = DateTime.UtcNow;
                
                 await _db.SaveChangesAsync();
 
